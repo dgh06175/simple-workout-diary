@@ -43,3 +43,77 @@
 - 사용자가 수행했던 운동을 고를 수 있다.
 - 운동 종목을 선택하면 해당 운동에 대한 무게 그래프가 표시된다.
 - 무게 기준은 1RM으로 치환하여 계산한다.
+
+
+# 메모 데이터 정의
+
+> WorkoutDetailRecord
+
+- 작성 날짜: Date
+- 운동 정보: [WorkoutDetail]
+    - 운동 종류: WorkoutType(Enum)
+    - 몇킬로 몇개 몇번 했는지: [WorkoutSet]
+        - 무게, 개수 (Double, Int)
+- 메모: String
+- 기분 이모지: WorkoutFeeling(Enum)
+
+```swift
+struct WorkoutDetailRecord {
+    let date: Date
+    let workoutDetails: [WorkoutDetail]
+    let memo: String
+    let feeling: WorkoutFeeling
+}
+
+struct WorkoutDetail {
+    let workoutType: WorkoutType
+    var workoutSets: [WorkoutSet]
+}
+
+enum WorkoutType: String {
+    case deadlift = "데드리프트"
+    case squat = "스쿼트"
+    case benchPress = "벤치 프레스"
+    case overHeadPress = "오버헤드 프레스"
+    case barbellRow = "바벨로우"
+}
+
+struct WorkoutSet {
+    let weight: Double
+    let repetitions: Int
+}
+
+enum WorkoutFeeling: String {
+    case tired = "😴"
+    case soso = "😐"
+    case motivated = "💪"
+}
+```
+
+WorkoutDetailRecord
+|------------------|     |----------------|
+| - date: Date     |     | WorkoutFeeling |
+| - workoutDetails |---->| - tired        |
+| - memo: String   |     | - soso         |
+| - feeling        |     | - motivated    |
+|------------------|     |----------------|
+
+        |
+        |
+        v
+
+WorkoutDetail
+|-----------------|     |-----------------|
+| - workoutType   |---->| WorkoutType     |
+| - workoutSets   |     | - deadlift      |
+|-----------------|     | - squat         |
+                        | - benchPress    |
+        |               | - overHeadPress |
+        v               | - barbellRow    |
+                        |-----------------|
+WorkoutSet
+|--------------------|
+| - weight: Double   |
+| - repetitions: Int |
+|--------------------|
+

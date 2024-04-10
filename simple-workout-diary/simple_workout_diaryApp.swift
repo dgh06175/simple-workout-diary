@@ -25,7 +25,8 @@ struct simple_workout_diaryApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            //ContentView()
+            BottonTapView()
         }
         .modelContainer(sharedModelContainer)
     }
