@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct HomeView: View {
-    @ObservedObject var viewModel: WorkoutVM
     @State private var isDiaryAddViewPresented = false
     
     var body: some View {
@@ -17,7 +16,7 @@ struct HomeView: View {
                 .frame(width: 200, height: 230)
             DiaryAddButtonView(isDiaryAddViewPresented: $isDiaryAddViewPresented)
                 .fullScreenCover(isPresented: $isDiaryAddViewPresented) {
-                    WorkoutDiaryAddView(viewModel: viewModel)
+                    WorkoutDiaryAddView()
                 }
         }
     }
@@ -43,8 +42,4 @@ struct DiaryAddButtonView: View {
     private func toggleDiaryAddView() {
         isDiaryAddViewPresented = true
     }
-}
-
-#Preview {
-    BottonTapView(viewModel: WorkoutVM(records: MockWorkoutData.mockWorkoutRecords))
 }

@@ -6,53 +6,26 @@
 //
 
 import Foundation
-import SwiftUI
+import SwiftData
 
-final class WorkoutRecord: Identifiable, ObservableObject {
+@Model
+final class WorkoutRecord {
     let id = UUID()
-    let creationDate: Date
-    @Published var memo: String
-    @Published var feeling: WorkoutFeeling?
-
-    init(creationDate: Date, memo: String = "", feeling: WorkoutFeeling? = nil) {
+    var creationDate: Date
+    var memo: String
+    var feeling: WorkoutFeeling?
+    
+    init(creationDate: Date = .now, memo: String = "", feeling: WorkoutFeeling? = nil) {
         self.creationDate = creationDate
         self.memo = memo
         self.feeling = feeling
     }
 }
 
-enum WorkoutFeeling: String, CaseIterable {
+enum WorkoutFeeling: String, CaseIterable, Codable {
     case tired = "😨"
     case soso = "😐"
     case motivated = "🔥"
-    
-//    var dayImage: Image {
-//        switch self {
-//        case .tired:
-//            return Image("tired")
-//                .resizable()
-//        case .soso:
-//            return Image("soso")
-//                .resizable()
-//        case .motivated:
-//            return Image("motivated")
-//                .resizable()
-//        }
-//    }
-//    
-//    var nightImage: Image {
-//        switch self {
-//        case .tired:
-//            return Image("tired_black")
-//                .resizable()
-//        case .soso:
-//            return Image("soso_black")
-//                .resizable()
-//        case .motivated:
-//            return Image("motivated_black")
-//                .resizable()
-//        }
-//    }
 }
 
 //@Model

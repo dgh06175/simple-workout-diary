@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
-struct WorkoutDiaryAddView: View {
-    @Environment(\.dismiss) var dismiss
-    @ObservedObject var viewModel: WorkoutVM
+struct WorkoutDiaryAddView: View {    @Environment(\.modelContext) private var modelContext
+    @Query private var workoutRecords: [WorkoutRecord]
     
+    @Environment(\.dismiss) var dismiss
     @State private var memo: String = ""
     @State private var selectedFeeling: WorkoutFeeling?
     
@@ -70,13 +71,16 @@ struct WorkoutDiaryAddView: View {
     
     private func feelingPickerSheet() -> some View {
         FeelingPickerView(selectedFeeling: $selectedFeeling) {
-            createAndSaveRecord()
+            createRecord()
         }
     }
     
-    private func createAndSaveRecord() {
-        let newRecord = WorkoutRecord(creationDate: Date(), memo: memo, feeling: selectedFeeling)
-        viewModel.createRecord(record: newRecord)
+    private func createRecord() {
+        let newRecord = WorkoutRecord(
+            memo: memo,
+            feeling: selectedFeeling
+        )
+        modelContext.insert(newRecord)
         dismiss()
     }
 }
@@ -108,9 +112,4 @@ private struct FeelingPickerView: View {
         }
         .presentationDetents([.height(180)])
     }
-}
-
-
-#Preview {
-    BottonTapView(viewModel: WorkoutVM(records: MockWorkoutData.mockWorkoutRecords))
 }

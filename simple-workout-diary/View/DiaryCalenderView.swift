@@ -6,14 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct DiaryCalenderView: View {
-    @ObservedObject var viewModel: WorkoutVM
+    @Environment(\.modelContext) private var modelContext
+    @Query private var workoutRecords: [WorkoutRecord]
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(viewModel.records.sorted(by: {$0.creationDate > $1.creationDate })) { record in
+                ForEach(workoutRecords) { record in
                     HStack {
                         VStack(alignment: .leading) {
                             Text(record.creationDate, style: .date)
@@ -35,12 +37,7 @@ struct DiaryCalenderView: View {
     
     private func deleteItems(at offsets: IndexSet) {
         for index in offsets {
-            let recordID = viewModel.records[index].id
-            viewModel.deleteRecord(withID: recordID)
+            modelContext.delete(workoutRecords[index])
         }
     }
-}
-
-#Preview {
-    DiaryCalenderView(viewModel: WorkoutVM(records: MockWorkoutData.mockWorkoutRecords))
 }
