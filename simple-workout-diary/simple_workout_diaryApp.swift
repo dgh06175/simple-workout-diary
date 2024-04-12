@@ -10,6 +10,8 @@ import SwiftData
 
 @main
 struct simple_workout_diaryApp: App {
+    @ObservedObject var viewModel: WorkoutVM = WorkoutVM(records: MockWorkoutData.mockWorkoutRecords)
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
@@ -25,8 +27,7 @@ struct simple_workout_diaryApp: App {
 
     var body: some Scene {
         WindowGroup {
-            //ContentView()
-            BottonTapView()
+            BottonTapView(viewModel: viewModel)
         }
         .modelContainer(sharedModelContainer)
     }

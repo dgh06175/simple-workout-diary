@@ -8,18 +8,19 @@
 import SwiftUI
 
 struct BottonTapView: View {
+    @ObservedObject var viewModel: WorkoutVM
     
     var body: some View {
         TabView {
-            HomeView()
+            HomeView(viewModel: viewModel)
                 .tabItem {
                     Label("홈", systemImage: "house")
                 }
-            CalenderView()
+            DiaryCalenderView(viewModel: viewModel)
                 .tabItem {
                     Label("캘린더", systemImage: "calendar")
                 }
-            SettingView()
+            SettingView(viewModel: viewModel)
                 .tabItem {
                     Label("설정", systemImage: "gearshape")
                 }
@@ -28,5 +29,5 @@ struct BottonTapView: View {
 }
 
 #Preview {
-    BottonTapView()
+    BottonTapView(viewModel: WorkoutVM(records: MockWorkoutData.mockWorkoutRecords))
 }

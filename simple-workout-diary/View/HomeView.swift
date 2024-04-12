@@ -8,39 +8,43 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var isShowingDiaryAddView = false
+    @ObservedObject var viewModel: WorkoutVM
+    @State private var isDiaryAddViewPresented = false
     
     var body: some View {
         VStack {
-            Image(systemName: "hare")
-                .font(.system(size: 150))
-                .frame(height: 400)
-            Button(action: {
-                isShowingDiaryAddView = true
-            }) {
-                DiaryAddButtonView()
-            }
-            .fullScreenCover(isPresented: $isShowingDiaryAddView) {
-                DiaryAddView()
-            }
+            FireEffect()
+                .frame(width: 200, height: 230)
+            DiaryAddButtonView(isDiaryAddViewPresented: $isDiaryAddViewPresented)
+                .fullScreenCover(isPresented: $isDiaryAddViewPresented) {
+                    WorkoutDiaryAddView(viewModel: viewModel)
+                }
         }
     }
 }
 
 struct DiaryAddButtonView: View {
+    @Binding var isDiaryAddViewPresented: Bool
+    
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 25.0)
-                .fill(Color.color1)
-                .frame(width: 220, height: 70)
-            Text("오늘의 운동 기록하기")
-                .font(.title3)
-                .foregroundStyle(Color.white)
+        Button(action: toggleDiaryAddView) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 25.0)
+                    .fill(Color.customDarkRed)
+                    .frame(width: 220, height: 70)
+                Text("오늘의 운동 기록하기")
+                    .font(.title3)
+                    .foregroundStyle(Color.white)
+            }
+            .padding()
         }
-        .padding()
+    }
+    
+    private func toggleDiaryAddView() {
+        isDiaryAddViewPresented = true
     }
 }
 
 #Preview {
-    HomeView()
+    BottonTapView(viewModel: WorkoutVM(records: MockWorkoutData.mockWorkoutRecords))
 }

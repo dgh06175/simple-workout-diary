@@ -8,12 +8,10 @@
 import SwiftUI
 
 struct SettingView: View {
+    @ObservedObject var viewModel: WorkoutVM
+
     var body: some View {
         Image(systemName: "gearshape")
             .font(.system(size: 150))
     }
-}
-
-#Preview {
-    SettingView()
 }
