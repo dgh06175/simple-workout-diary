@@ -16,16 +16,14 @@ struct WorkoutDetailView: View {
     @State private var showingDeleteAlert = false
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            Text(DateUtil.formattedCurrentDate(workoutRecord.creationDate))
-                .font(.title)
+        VStack(alignment: .center) {
             Text(workoutRecord.memo)
                 .font(.body)
             Text(workoutRecord.feeling?.rawValue ?? "")
                 .font(.caption)
             Spacer()
         }
-        .navigationTitle("상세 기록")
+        .navigationTitle(DateUtil.formattedCurrentDate(workoutRecord.creationDate))
         .alert("정말 삭제하시겠습니까?", isPresented: $showingDeleteAlert) {
             Button("취소", role: .cancel) { }
             Button("삭제", role: .destructive) {
@@ -41,7 +39,6 @@ struct WorkoutDetailView: View {
             }
         }
     }
-    
     
     private func deleteRecord() {
         modelContext.delete(workoutRecord)

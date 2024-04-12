@@ -8,7 +8,8 @@
 import SwiftUI
 import SwiftData
 
-struct WorkoutDiaryAddView: View {    @Environment(\.modelContext) private var modelContext
+struct WorkoutDiaryAddView: View {
+    @Environment(\.modelContext) private var modelContext
     @Query private var workoutRecords: [WorkoutRecord]
     
     @Environment(\.dismiss) var dismiss

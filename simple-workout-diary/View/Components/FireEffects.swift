@@ -10,7 +10,7 @@ import SDWebImageSwiftUI
 
 struct FireEffect: View {
     var body: some View {
-        AnimatedImage(name: "fire-flame.gif")
+        AnimatedImage(name: "flame.gif")
             .resizable()
     }
 }
