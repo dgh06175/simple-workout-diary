@@ -20,6 +20,7 @@ final class WorkoutRecord {
         self.memo = memo
         self.feeling = feeling
     }
+    
 }
 
 enum WorkoutFeeling: String, CaseIterable, Codable {

@@ -19,11 +19,11 @@ struct WorkoutDetailView: View {
         VStack(alignment: .center) {
             Text(workoutRecord.memo)
                 .font(.body)
-            Text(workoutRecord.feeling?.rawValue ?? "")
+            Text(getFeeling())
                 .font(.caption)
             Spacer()
         }
-        .navigationTitle(DateUtil.formattedCurrentDate(workoutRecord.creationDate))
+        .navigationTitle(workoutRecord.creationDate.formattedDateYearMonthDay())
         .alert("정말 삭제하시겠습니까?", isPresented: $showingDeleteAlert) {
             Button("취소", role: .cancel) { }
             Button("삭제", role: .destructive) {
@@ -42,6 +42,10 @@ struct WorkoutDetailView: View {
     
     private func deleteRecord() {
         modelContext.delete(workoutRecord)
+    }
+    
+    private func getFeeling() -> String {
+        return workoutRecord.feeling?.rawValue ?? ""
     }
 }
 

@@ -15,7 +15,8 @@ struct WorkoutDiaryAddView: View {
     @Environment(\.dismiss) var dismiss
     @State private var memo: String = ""
     @State private var selectedFeeling: WorkoutFeeling?
-    
+    @State private var creationDate: Date = Date()
+
     @State private var showingExitConfirmation = false
     @State private var showingCompletionAlert = false
     @State private var showingFeelingPicker = false
@@ -27,7 +28,7 @@ struct WorkoutDiaryAddView: View {
                     TextField("운동에 대한 메모를 입력하세요", text: $memo)
                 }
             }
-            .navigationTitle(DateUtil.formattedCurrentDate(Date()))
+            .navigationTitle(creationDate.formattedDateYearMonthDay())
             .toolbar { toolbarContent }
             .alert("나가기", isPresented: $showingExitConfirmation) {
                 Button("취소", role: .cancel) { }
@@ -78,6 +79,7 @@ struct WorkoutDiaryAddView: View {
     
     private func createRecord() {
         let newRecord = WorkoutRecord(
+            creationDate: creationDate,
             memo: memo,
             feeling: selectedFeeling
         )

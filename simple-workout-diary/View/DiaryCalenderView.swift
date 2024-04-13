@@ -10,28 +10,34 @@ import SwiftData
 
 struct DiaryCalenderView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query(sort: \WorkoutRecord.creationDate, order: .reverse) private var workoutRecords: [WorkoutRecord]
+    //@Query(sort: \WorkoutRecord.creationDate, order: .reverse) private var workoutRecords: [WorkoutRecord]
+    @Query private var workoutRecords: [WorkoutRecord]
+
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(workoutRecords) { record in
-                    NavigationLink(destination: WorkoutDetailView(workoutRecord: record)) {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(DateUtil.formattedCurrentDate(record.creationDate))
-                                    .font(.headline)
-                                Text(record.memo)
-                                    .font(.subheadline)
-                                Text(record.feeling?.rawValue ?? "😐")
-                                    .font(.caption)
+            VStack {
+                CalendarView(month: Date())
+                
+                List {
+                    ForEach(workoutRecords) { record in
+                        NavigationLink(destination: WorkoutDetailView(workoutRecord: record)) {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(record.creationDate.formattedDateYearMonthDay())
+                                        .font(.headline)
+                                    Text(record.memo)
+                                        .font(.subheadline)
+                                    Text(record.feeling?.rawValue ?? "😐")
+                                        .font(.caption)
+                                }
+                                Spacer()
                             }
-                            Spacer()
                         }
                     }
                 }
+                .navigationTitle("운동 기록")
             }
-            .navigationTitle("운동 기록")
         }
     }
 }

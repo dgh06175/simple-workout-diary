@@ -11,6 +11,7 @@ import SDWebImageSwiftUI
 struct FireEffect: View {
     var body: some View {
         AnimatedImage(name: "flame.gif")
+            .playbackRate(Double.random(in: 0.8...1.2))
             .resizable()
     }
 }
