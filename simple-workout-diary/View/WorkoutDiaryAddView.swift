@@ -9,8 +9,8 @@ import SwiftUI
 import SwiftData
 
 struct WorkoutDiaryAddView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var workoutRecords: [WorkoutRecord]
+    private var workoutRecords: [WorkoutRecord]
+    let insertRecordDB: (WorkoutRecord) -> Void
     
     @Environment(\.dismiss) var dismiss
     @State private var memo: String = ""
@@ -83,7 +83,7 @@ struct WorkoutDiaryAddView: View {
             memo: memo,
             feeling: selectedFeeling
         )
-        modelContext.insert(newRecord)
+        insertRecordDB(newRecord)
         dismiss()
     }
 }

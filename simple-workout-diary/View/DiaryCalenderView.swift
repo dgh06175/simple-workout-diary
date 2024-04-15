@@ -9,19 +9,19 @@ import SwiftUI
 import SwiftData
 
 struct DiaryCalenderView: View {
-    @Environment(\.modelContext) private var modelContext
-    //@Query(sort: \WorkoutRecord.creationDate, order: .reverse) private var workoutRecords: [WorkoutRecord]
-    @Query private var workoutRecords: [WorkoutRecord]
+    var workoutRecords: [WorkoutRecord]
+    let deleteRecordDB: (WorkoutRecord) -> Void
 
-    
     var body: some View {
         NavigationView {
             VStack {
-                CalendarView(month: Date())
-                
+                //CalendarView(month: Date())
                 List {
                     ForEach(workoutRecords) { record in
-                        NavigationLink(destination: WorkoutDetailView(workoutRecord: record)) {
+                        NavigationLink(destination: WorkoutDetailView(
+                            workoutRecord: record,
+                            deleteRecordDB: deleteRecordDB
+                        )) {
                             HStack {
                                 VStack(alignment: .leading) {
                                     Text(record.creationDate.formattedDateYearMonthDay())

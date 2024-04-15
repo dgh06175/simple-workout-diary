@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct HomeView: View {
+    var workoutRecords: [WorkoutRecord]
+    let insertRecordDB: (WorkoutRecord) -> Void
+    
     @State private var isDiaryAddViewPresented = false
+
     
     var body: some View {
         VStack {
@@ -16,7 +20,9 @@ struct HomeView: View {
                 .frame(width: 200, height: 230)
             DiaryAddButtonView(isDiaryAddViewPresented: $isDiaryAddViewPresented)
                 .fullScreenCover(isPresented: $isDiaryAddViewPresented) {
-                    WorkoutDiaryAddView()
+                    WorkoutDiaryAddView(
+                        insertRecordDB: insertRecordDB
+                    )
                 }
         }
     }

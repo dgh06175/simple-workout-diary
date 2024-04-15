@@ -9,10 +9,10 @@ import SwiftUI
 import SwiftData
 
 struct WorkoutDetailView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Environment(\.dismiss) var dismiss
-    @Bindable var workoutRecord: WorkoutRecord
+    var workoutRecord: WorkoutRecord
+    let deleteRecordDB: (WorkoutRecord) -> Void
     
+    @Environment(\.dismiss) var dismiss
     @State private var showingDeleteAlert = false
     
     var body: some View {
@@ -27,7 +27,7 @@ struct WorkoutDetailView: View {
         .alert("정말 삭제하시겠습니까?", isPresented: $showingDeleteAlert) {
             Button("취소", role: .cancel) { }
             Button("삭제", role: .destructive) {
-                deleteRecord()
+                deleteRecordDB(workoutRecord)
                 dismiss()
             }
         }
@@ -38,10 +38,6 @@ struct WorkoutDetailView: View {
                 }
             }
         }
-    }
-    
-    private func deleteRecord() {
-        modelContext.delete(workoutRecord)
     }
     
     private func getFeeling() -> String {
