@@ -29,36 +29,26 @@ struct WorkoutDiaryAddView: View {
                 }
             }
             .navigationTitle(creationDate.formattedDateYearMonthDay())
-            .toolbar { toolbarContent }
-            .alert("나가기", isPresented: $showingExitConfirmation) {
-                Button("취소", role: .cancel) { }
-                Button("확인", role: .destructive) {
-                    dismiss()
-                }
-            } message: {
-                Text("정말로 나가시겠습니까? 입력한 정보가 저장되지 않습니다.")
+            .toolbar {
+                WorkoutDiaryToolbar(
+                    checkForUnsavedChanges: checkForUnsavedChanges,
+                    showCompletionAlert: { showingCompletionAlert = true }
+                )
             }
-            .alert("정말 완료하시겠습니까?", isPresented: $showingCompletionAlert) {
-                Button("취소", role: .cancel) { }
-                Button("완료", role: .destructive) {
-                    showingFeelingPicker = true
-                }
-            }
+            .modifier(
+                ExitConfirmationAlert(
+                    isPresented: $showingExitConfirmation,
+                    onConfirm: { dismiss() }
+                ))
+            .modifier(
+                CompletionConfirmationAlert(
+                    isPresented: $showingCompletionAlert,
+                    onConfirm: { showingFeelingPicker = true }
+                ))
         }
-        .sheet(isPresented: $showingFeelingPicker,content: feelingPickerSheet)
-    }
-    
-    private var toolbarContent: some ToolbarContent {
-        Group {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: checkForUnsavedChanges) {
-                    Image(systemName: "chevron.backward")
-                }
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button("완료") {
-                    showingCompletionAlert = true
-                }
+        .sheet(isPresented: $showingFeelingPicker) {
+            FeelingPickerView(selectedFeeling: $selectedFeeling) {
+                createRecord()
             }
         }
     }
@@ -88,7 +78,53 @@ struct WorkoutDiaryAddView: View {
     }
 }
 
-private struct FeelingPickerView: View {
+struct ExitConfirmationAlert: ViewModifier {
+    @Binding var isPresented: Bool
+    var onConfirm: () -> Void
+    
+    func body(content: Content) -> some View {
+        content
+            .alert("나가기", isPresented: $isPresented) {
+                Button("취소", role: .cancel) { }
+                Button("확인", role: .destructive, action: onConfirm)
+            } message: {
+                Text("정말로 나가시겠습니까? 입력한 정보가 저장되지 않습니다.")
+            }
+    }
+}
+
+struct CompletionConfirmationAlert: ViewModifier {
+    @Binding var isPresented: Bool
+    var onConfirm: () -> Void
+
+    func body(content: Content) -> some View {
+        content
+            .alert("정말 완료하시겠습니까?", isPresented: $isPresented) {
+                Button("취소", role: .cancel) { }
+                Button("완료", role: .destructive, action: onConfirm)
+            }
+    }
+}
+
+struct WorkoutDiaryToolbar: ToolbarContent {
+    var checkForUnsavedChanges: () -> Void
+    var showCompletionAlert: () -> Void
+
+    var body: some ToolbarContent {
+        Group {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: checkForUnsavedChanges) {
+                    Image(systemName: "chevron.backward")
+                }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("완료", action: showCompletionAlert)
+            }
+        }
+    }
+}
+
+struct FeelingPickerView: View {
     @Binding var selectedFeeling: WorkoutFeeling?
     var onConfirm: () -> Void
 
@@ -115,4 +151,9 @@ private struct FeelingPickerView: View {
         }
         .presentationDetents([.height(180)])
     }
+}
+
+#Preview {
+    ContentView()
+        .modelContainer(sampleData)
 }

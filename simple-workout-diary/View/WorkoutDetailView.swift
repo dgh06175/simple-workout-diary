@@ -11,30 +11,46 @@ import SwiftData
 struct WorkoutDetailView: View {
     var workoutRecord: WorkoutRecord
     let deleteRecordDB: (WorkoutRecord) -> Void
-    
+    let memo_old: String
+    @State var memo: String
+
     @Environment(\.dismiss) var dismiss
+    @State private var showingExitConfirmation = false
+    @State private var showingCompletionAlert = false
     @State private var showingDeleteAlert = false
+
+    init(workoutRecord: WorkoutRecord,
+         deleteRecordDB: @escaping (WorkoutRecord) -> Void
+    ) {
+        self.workoutRecord = workoutRecord
+        self.deleteRecordDB = deleteRecordDB
+        self.memo_old = "\(workoutRecord.memo)"
+        self.memo = workoutRecord.memo
+    }
     
     var body: some View {
-        VStack(alignment: .center) {
-            Text(workoutRecord.memo)
-                .font(.body)
-            Text(getFeeling())
-                .font(.caption)
-            Spacer()
-        }
-        .navigationTitle(workoutRecord.creationDate.formattedDateYearMonthDay())
-        .alert("정말 삭제하시겠습니까?", isPresented: $showingDeleteAlert) {
-            Button("취소", role: .cancel) { }
-            Button("삭제", role: .destructive) {
-                deleteRecordDB(workoutRecord)
-                dismiss()
+        Form {
+            Section(header: Text("메모")) {
+                TextField("운동에 대한 메모를 입력하세요", text: $memo)
             }
         }
+        .onDisappear {
+            workoutRecord.memo = memo
+        }
+        .navigationTitle(workoutRecord.creationDate.formattedDateYearMonthDayHourMinutes())
+        .modifier(
+            DeleteConfirmationAlert(
+                isPresented: $showingDeleteAlert,
+                onConfirm: {
+                    deleteRecordDB(workoutRecord)
+                    dismiss()
+                }
+            ))
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button("삭제") {
-                    showingDeleteAlert = true
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: { showingDeleteAlert = true }){
+                    Text("삭제")
+                        .foregroundStyle(Color.red)
                 }
             }
         }
@@ -45,6 +61,22 @@ struct WorkoutDetailView: View {
     }
 }
 
-//#Preview {
-//    WorkoutDetailView()
-//}
+struct DeleteConfirmationAlert: ViewModifier {
+    @Binding var isPresented: Bool
+    var onConfirm: () -> Void
+    
+    func body(content: Content) -> some View {
+        content
+            .alert("정말 삭제하시겠습니까?", isPresented: $isPresented) {
+                Button("취소", role: .cancel) { }
+                Button("삭제", role: .destructive) {
+                    onConfirm()
+                }
+            }
+    }
+}
+
+#Preview {
+    ContentView()
+        .modelContainer(sampleData)
+}

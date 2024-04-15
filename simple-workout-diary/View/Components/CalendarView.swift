@@ -11,15 +11,14 @@ struct CalendarView: View {
     @State var month: Date
     var workoutRecords: [WorkoutRecord]
     let deleteRecordDB: (WorkoutRecord) -> Void
-
-    @State var offset: CGSize = CGSize()
+    @Binding var selectedDate: Date
     
     var body: some View {
         VStack {
             headerView
             calendarGridView
         }
-        .padding(40)
+        .padding()
     }
     
     // MARK: - 헤더 뷰
@@ -74,29 +73,30 @@ struct CalendarView: View {
                         //let clicked = workoutDates.contains(date)
                         let record = workoutRecord(for: date)
                         
-                        CellView(day: day, record: record, deleteRecordDB: deleteRecordDB)
-//                            .onTapGesture {
-//                                if clicked {
-//                                    workoutDates.remove(date)
-//                                } else {
-//                                    workoutDates.insert(date)
-//                                }
-//                            }
-                        
+                        CellView(cellDate: date, day: day, record: record, deleteRecordDB: deleteRecordDB)
+                            .onTapGesture {
+                                selectedDate = date
+                            }
                     }
                 }
             }
         }
+        .transition(.slide)
+        .animation(.easeIn,value:month)
     }
 }
 
 // MARK: - 일자 셀 뷰
 private struct CellView: View {
+    let cellDate: Date
     var day: Int
     var record: WorkoutRecord?
     let deleteRecordDB: (WorkoutRecord) -> Void
     
-    init(day: Int, record: WorkoutRecord?, deleteRecordDB: @escaping (WorkoutRecord) -> Void) {
+    let cellSize: CGFloat = 40
+    
+    init(cellDate: Date, day: Int, record: WorkoutRecord?, deleteRecordDB: @escaping (WorkoutRecord) -> Void) {
+        self.cellDate = cellDate
         self.day = day
         self.record = record
         self.deleteRecordDB = deleteRecordDB
@@ -107,20 +107,37 @@ private struct CellView: View {
             RoundedRectangle(cornerRadius: 5)
                 .fill(Color.clear)
                 .overlay(Text(String(day)))
-                .foregroundColor(.black)
-            if let record = record {
-                NavigationLink(destination: WorkoutDetailView(
-                    workoutRecord: record,
-                    deleteRecordDB: deleteRecordDB
-                )) {
-                    FireEffect()
-                        .scaledToFit()
-                        .frame(width: 100)
-                        .offset(y: -3)
-                }
+                .foregroundColor(.color)
+            if isSameDate(Date(), cellDate) {
+                Circle()
+                    .fill(Color.black.opacity(0.5))
+                    .frame(width: 40, height: 40)
             }
+            if record != nil {
+                workoutCellView(color: Color.red.opacity(0.5))
+//                FireEffect()
+//                    .scaledToFit()
+//                    .offset(y: -3)
+            }
+            
+            
+            //                NavigationLink(destination: WorkoutDetailView(
+            //                    workoutRecord: record,
+            //                    deleteRecordDB: deleteRecordDB
+            //                )) {}
         }
-        .frame(width: .infinity, height: 50)
+        .scaledToFit()
+    }
+    
+    func workoutCellView(color: Color) -> some View {
+        Circle()
+            .fill(color)
+            .frame(width: 40, height: 40)
+    }
+    
+    /// 같은 날짜인지 년, 월, 일 비교
+    func isSameDate(_ date1: Date, _ date2: Date) -> Bool {
+        return date1.formattedDateYearMonthDay() == date2.formattedDateYearMonthDay()
     }
 }
 
@@ -158,9 +175,9 @@ private extension CalendarView {
         }
     }
     
-    // 날짜에 맞는 기록 찾기
+    /// 날짜에 맞는 기록 찾기
     func workoutRecord(for date: Date) -> WorkoutRecord? {
-        workoutRecords.first(where: { $0.creationDate.startOfDay() == date.startOfDay() })
+        return workoutRecords.first(where: { $0.creationDate.startOfDay() == date.startOfDay() })
     }
 }
 

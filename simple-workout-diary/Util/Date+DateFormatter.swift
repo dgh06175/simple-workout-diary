@@ -8,6 +8,12 @@
 import SwiftUI
 
 extension Date {
+    func formattedDateYearMonthDayHourMinutes() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+        return dateFormatter.string(from: self)
+    }
+    
     func formattedDateYearMonthDay() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy.MM.dd"
@@ -18,6 +24,12 @@ extension Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy.MM"
         return dateFormatter.string(from: self)
+    }
+    
+    func formattedDateDayKR() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd"
+        return dateFormatter.string(from: self) + "일"
     }
 }
 
