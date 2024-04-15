@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct WorkoutDiaryAddView: View {
-    private var workoutRecords: [WorkoutRecord]
+    var workoutRecords: [WorkoutRecord]
     let insertRecordDB: (WorkoutRecord) -> Void
     
     @Environment(\.dismiss) var dismiss

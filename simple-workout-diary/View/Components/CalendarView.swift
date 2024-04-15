@@ -9,28 +9,16 @@ import SwiftUI
 
 struct CalendarView: View {
     @State var month: Date
+    var workoutRecords: [WorkoutRecord]
+    let deleteRecordDB: (WorkoutRecord) -> Void
+
     @State var offset: CGSize = CGSize()
-    @State var workoutDates: Set<Date> = []
     
     var body: some View {
         VStack {
             headerView
             calendarGridView
         }
-//        .gesture(
-//            DragGesture()
-//                .onChanged { gesture in
-//                    self.offset = gesture.translation
-//                }
-//                .onEnded { gesture in
-//                    if gesture.translation.width < -100 {
-//                        changeMonth(by: 1)
-//                    } else if gesture.translation.width > 100 {
-//                        changeMonth(by: -1)
-//                    }
-//                    self.offset = CGSize()
-//                }
-//        )
         .padding(40)
     }
     
@@ -83,16 +71,18 @@ struct CalendarView: View {
                     } else {
                         let date = getDate(for: index - firstWeekday)
                         let day = index - firstWeekday + 1
-                        let clicked = workoutDates.contains(date)
+                        //let clicked = workoutDates.contains(date)
+                        let record = workoutRecord(for: date)
                         
-                        CellView(day: day, clicked: clicked)
-                            .onTapGesture {
-                                if clicked {
-                                    workoutDates.remove(date)
-                                } else {
-                                    workoutDates.insert(date)
-                                }
-                            }
+                        CellView(day: day, record: record, deleteRecordDB: deleteRecordDB)
+//                            .onTapGesture {
+//                                if clicked {
+//                                    workoutDates.remove(date)
+//                                } else {
+//                                    workoutDates.insert(date)
+//                                }
+//                            }
+                        
                     }
                 }
             }
@@ -103,11 +93,13 @@ struct CalendarView: View {
 // MARK: - 일자 셀 뷰
 private struct CellView: View {
     var day: Int
-    var clicked: Bool = false
+    var record: WorkoutRecord?
+    let deleteRecordDB: (WorkoutRecord) -> Void
     
-    init(day: Int, clicked: Bool) {
+    init(day: Int, record: WorkoutRecord?, deleteRecordDB: @escaping (WorkoutRecord) -> Void) {
         self.day = day
-        self.clicked = clicked
+        self.record = record
+        self.deleteRecordDB = deleteRecordDB
     }
     
     var body: some View {
@@ -116,11 +108,16 @@ private struct CellView: View {
                 .fill(Color.clear)
                 .overlay(Text(String(day)))
                 .foregroundColor(.black)
-            if clicked {
-                FireEffect()
-                    .scaledToFit()
-                    .frame(width: 100)
-                    .offset(y: -3)
+            if let record = record {
+                NavigationLink(destination: WorkoutDetailView(
+                    workoutRecord: record,
+                    deleteRecordDB: deleteRecordDB
+                )) {
+                    FireEffect()
+                        .scaledToFit()
+                        .frame(width: 100)
+                        .offset(y: -3)
+                }
             }
         }
         .frame(width: .infinity, height: 50)
@@ -160,6 +157,11 @@ private extension CalendarView {
             self.month = newMonth
         }
     }
+    
+    // 날짜에 맞는 기록 찾기
+    func workoutRecord(for date: Date) -> WorkoutRecord? {
+        workoutRecords.first(where: { $0.creationDate.startOfDay() == date.startOfDay() })
+    }
 }
 
 // MARK: - Static 프로퍼티
@@ -167,11 +169,4 @@ extension CalendarView {
     
     static let weekdaySymbolsKR = ["일", "월", "화", "수", "목", "금", "토"]
     static let weekdaySymbols = Calendar.current.shortStandaloneWeekdaySymbols
-}
-
-#Preview {
-    VStack {
-        CalendarView(month: Date())
-        Spacer()
-    }
 }

@@ -20,3 +20,9 @@ extension Date {
         return dateFormatter.string(from: self)
     }
 }
+
+extension Date {
+    func startOfDay() -> Date {
+        Calendar.current.startOfDay(for: self)
+    }
+}

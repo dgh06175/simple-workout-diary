@@ -21,6 +21,7 @@ struct HomeView: View {
             DiaryAddButtonView(isDiaryAddViewPresented: $isDiaryAddViewPresented)
                 .fullScreenCover(isPresented: $isDiaryAddViewPresented) {
                     WorkoutDiaryAddView(
+                        workoutRecords: workoutRecords,
                         insertRecordDB: insertRecordDB
                     )
                 }
