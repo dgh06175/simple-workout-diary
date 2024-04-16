@@ -35,11 +35,12 @@ struct DiaryAddButtonView: View {
     var body: some View {
         Button(action: toggleDiaryAddView) {
             ZStack {
-                RoundedRectangle(cornerRadius: 25.0)
+                RoundedRectangle(cornerRadius: 15.0)
                     .fill(Color.customDarkRed)
-                    .frame(width: 220, height: 70)
+                    .frame(width: 220, height: 60)
                 Text("오늘의 운동 기록하기")
                     .font(.title3)
+                    .fontWeight(.bold)
                     .foregroundStyle(Color.white)
             }
             .padding()

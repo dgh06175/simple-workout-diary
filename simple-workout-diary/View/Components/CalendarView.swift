@@ -16,9 +16,15 @@ struct CalendarView: View {
     var body: some View {
         VStack {
             headerView
+                .padding(18)
+            weekDayView
+                .padding(.horizontal)
             calendarGridView
+                .padding(.horizontal)
+                .padding(.bottom)
         }
-        .padding()
+        .background(Color.gray.opacity(0.1))
+        .animation(.linear(duration: 0.1) ,value:month)
     }
     
     // MARK: - 헤더 뷰
@@ -42,17 +48,18 @@ struct CalendarView: View {
                         .frame(width: 12)
                 })
             }
-            .padding(.horizontal)
-            .padding(.bottom)
-            HStack {
-                ForEach(Self.weekdaySymbolsKR, id: \.self) { symbol in
-                    Text(symbol)
-                        .foregroundStyle(Color.gray)
-                        .opacity(0.6)
-                        .frame(maxWidth: .infinity)
-                }
+        }
+    }
+    
+    // MARK: - 월화수목금토일 뷰
+    private var weekDayView: some View {
+        HStack {
+            ForEach(Self.weekdaySymbolsKR, id: \.self) { symbol in
+                Text(symbol)
+                    .foregroundStyle(Color.gray)
+                    .opacity(0.6)
+                    .frame(maxWidth: .infinity)
             }
-            .padding(.bottom, 5)
         }
     }
     
@@ -73,7 +80,7 @@ struct CalendarView: View {
                         //let clicked = workoutDates.contains(date)
                         let record = workoutRecord(for: date)
                         
-                        CellView(cellDate: date, day: day, record: record, deleteRecordDB: deleteRecordDB)
+                        CellView(cellDate: date, day: day, record: record, deleteRecordDB: deleteRecordDB, selectedDate: selectedDate)
                             .onTapGesture {
                                 selectedDate = date
                             }
@@ -81,8 +88,6 @@ struct CalendarView: View {
                 }
             }
         }
-        .transition(.slide)
-        .animation(.easeIn,value:month)
     }
 }
 
@@ -92,35 +97,41 @@ private struct CellView: View {
     var day: Int
     var record: WorkoutRecord?
     let deleteRecordDB: (WorkoutRecord) -> Void
+    var selectedDate: Date
     
     let cellSize: CGFloat = 40
     
-    init(cellDate: Date, day: Int, record: WorkoutRecord?, deleteRecordDB: @escaping (WorkoutRecord) -> Void) {
+    init(cellDate: Date, day: Int, record: WorkoutRecord?, deleteRecordDB: @escaping (WorkoutRecord) -> Void, selectedDate: Date) {
         self.cellDate = cellDate
         self.day = day
         self.record = record
         self.deleteRecordDB = deleteRecordDB
+        self.selectedDate = selectedDate
     }
     
     var body: some View {
         ZStack {
+            if isSameDate(Date(), cellDate) {
+                Circle()
+                    .fill(Color.blue)
+                    .frame(width: 45, height: 45)
+            }
+            
+            if isSameDate(selectedDate, cellDate) {
+                Circle()
+                    .fill(Color.blue.opacity(0.5))
+                    .frame(width: 45, height: 45)
+            }
             RoundedRectangle(cornerRadius: 5)
                 .fill(Color.clear)
                 .overlay(Text(String(day)))
-                .foregroundColor(.color)
-            if isSameDate(Date(), cellDate) {
-                Circle()
-                    .fill(Color.black.opacity(0.5))
-                    .frame(width: 40, height: 40)
-            }
+                .foregroundColor(isSameDate(Date(), cellDate) ? .colorReverse :.color)
             if record != nil {
-                workoutCellView(color: Color.red.opacity(0.5))
-//                FireEffect()
-//                    .scaledToFit()
-//                    .offset(y: -3)
+//                workoutCellView(color: Color.red.opacity(0.5))
+                FireEffect()
+                    .scaledToFit()
+                    .offset(y: -3)
             }
-            
-            
             //                NavigationLink(destination: WorkoutDetailView(
             //                    workoutRecord: record,
             //                    deleteRecordDB: deleteRecordDB

@@ -22,15 +22,16 @@ struct DiaryCalenderView: View {
                     deleteRecordDB: deleteRecordDB,
                     selectedDate: $selectedDate
                 )
-                Spacer()
-                
+                .padding(.bottom)
                 SelectedWorkoutListView(
                     workoutRecords: getWorkoutRecords(for: selectedDate),
                     deleteRecordDB: deleteRecordDB,
                     selectedDate: selectedDate
                 )
             }
+            .navigationTitle("운동 기록")
         }
+        
     }
     
     private func getWorkoutRecords(for date: Date) -> [WorkoutRecord] {
@@ -46,17 +47,22 @@ struct SelectedWorkoutListView: View {
     var selectedDate: Date
     
     var body: some View {
-        List {
-            ForEach(workoutRecords.sorted(by: { $0.creationDate > $1.creationDate })) { record in
-                NavigationLink(destination: WorkoutDetailView(
-                    workoutRecord: record,
-                    deleteRecordDB: deleteRecordDB
-                )) {
-                    WorkoutRecordRow(workoutRecord: record)
+        VStack(alignment: .leading) {
+            Text(selectedDate.formattedDateDayKR())
+                .font(.headline)
+                .padding(.horizontal)
+            List {
+                ForEach(workoutRecords.sorted(by: { $0.creationDate < $1.creationDate })) { record in
+                    NavigationLink(destination: WorkoutDetailView(
+                        workoutRecord: record,
+                        deleteRecordDB: deleteRecordDB
+                    )) {
+                        WorkoutRecordRow(workoutRecord: record)
+                    }
                 }
             }
+            .listStyle(PlainListStyle())
         }
-        .navigationTitle("운동 기록")
     }
 }
 
@@ -66,15 +72,15 @@ struct WorkoutRecordRow: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(workoutRecord.creationDate.formattedDateDayKR())
-                    .font(.headline)
                 Text(workoutRecord.memo)
                     .font(.subheadline)
-                Text(workoutRecord.feeling?.rawValue ?? "😐")
-                    .font(.caption)
             }
             Spacer()
+            Text(workoutRecord.feeling?.rawValue ?? "😐")
+                .font(.title2)
+                .padding(.trailing)
         }
+        .frame(height: 50)
     }
 }
 

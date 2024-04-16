@@ -10,7 +10,6 @@ import SwiftData
 
 @Model
 final class WorkoutRecord {
-    let id = UUID()
     var creationDate: Date
     var memo: String
     var feeling: WorkoutFeeling?
