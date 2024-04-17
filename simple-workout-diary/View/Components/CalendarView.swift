@@ -36,10 +36,10 @@ struct CalendarView: View {
                     .fontWeight(.semibold)
                 Spacer()
                 Button(action: {changeMonth(by: -1)}, label: {
-                        Image(systemName: "chevron.left")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 12)
+                    Image(systemName: "chevron.left")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 12)
                 })
                 Button(action: {changeMonth(by: 1)}, label: {
                     Image(systemName: "chevron.right")
@@ -78,7 +78,7 @@ struct CalendarView: View {
                         let date = getDate(for: index - firstWeekday)
                         let day = index - firstWeekday + 1
                         //let clicked = workoutDates.contains(date)
-                        let record = workoutRecord(for: date)
+                        let record = workoutRecordByDate(for: date)
                         
                         CellView(cellDate: date, day: day, record: record, deleteRecordDB: deleteRecordDB, selectedDate: selectedDate)
                             .onTapGesture {
@@ -127,7 +127,7 @@ private struct CellView: View {
                 .overlay(Text(String(day)))
                 .foregroundColor(isSameDate(Date(), cellDate) ? .colorReverse :.color)
             if record != nil {
-//                workoutCellView(color: Color.red.opacity(0.5))
+                //                workoutCellView(color: Color.red.opacity(0.5))
                 FireEffect()
                     .scaledToFit()
                     .offset(y: -3)
@@ -148,7 +148,7 @@ private struct CellView: View {
     
     /// 같은 날짜인지 년, 월, 일 비교
     func isSameDate(_ date1: Date, _ date2: Date) -> Bool {
-        return date1.formattedDateYearMonthDay() == date2.formattedDateYearMonthDay()
+        return date1.isSameDate(date: date2)
     }
 }
 
@@ -187,8 +187,10 @@ private extension CalendarView {
     }
     
     /// 날짜에 맞는 기록 찾기
-    func workoutRecord(for date: Date) -> WorkoutRecord? {
-        return workoutRecords.first(where: { $0.creationDate.startOfDay() == date.startOfDay() })
+    func workoutRecordByDate(for date: Date) -> WorkoutRecord? {
+        return workoutRecords.first(
+            where: { $0.creationDate.startOfDay() == date.startOfDay() }
+        )
     }
 }
 

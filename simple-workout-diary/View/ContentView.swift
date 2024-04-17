@@ -31,7 +31,7 @@ struct ContentView: View {
                 }
             SettingView()
                 .tabItem {
-                    Label("설정", systemImage: "gearshape")
+                    Label("프로필", systemImage: "person")
                 }
         }
     }

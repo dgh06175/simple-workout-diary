@@ -37,7 +37,7 @@ struct WorkoutDetailView: View {
         .onDisappear {
             workoutRecord.memo = memo
         }
-        .navigationTitle(workoutRecord.creationDate.formattedDateYearMonthDayHourMinutes())
+        .navigationTitle(workoutRecord.creationDate.formattedDateYearMonthDay())
         .modifier(
             DeleteConfirmationAlert(
                 isPresented: $showingDeleteAlert,

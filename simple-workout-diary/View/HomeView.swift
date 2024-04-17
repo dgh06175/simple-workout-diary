@@ -13,7 +13,6 @@ struct HomeView: View {
     
     @State private var isDiaryAddViewPresented = false
 
-    
     var body: some View {
         VStack {
             FireEffect()

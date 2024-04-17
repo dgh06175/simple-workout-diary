@@ -8,12 +8,6 @@
 import SwiftUI
 
 extension Date {
-    func formattedDateYearMonthDayHourMinutes() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy.MM.dd"
-        return dateFormatter.string(from: self)
-    }
-    
     func formattedDateYearMonthDay() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy.MM.dd"
@@ -36,5 +30,9 @@ extension Date {
 extension Date {
     func startOfDay() -> Date {
         Calendar.current.startOfDay(for: self)
+    }
+    
+    func isSameDate(date: Date) -> Bool {
+        self.startOfDay() == date.startOfDay()
     }
 }

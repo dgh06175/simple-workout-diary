@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingView: View {
     var body: some View {
-        Image(systemName: "gearshape")
+        Image(systemName: "person")
             .font(.system(size: 150))
     }
 }

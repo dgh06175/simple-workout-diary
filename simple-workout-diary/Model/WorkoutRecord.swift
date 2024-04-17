@@ -5,7 +5,7 @@
 //  Created by 이상현 on 4/10/24.
 //
 
-import Foundation
+import SwiftUI
 import SwiftData
 
 @Model
@@ -21,10 +21,48 @@ final class WorkoutRecord {
     }
 }
 
+enum WorkoutType: String, CaseIterable {
+    case benchPress = "벤치프레스"
+    case deadlift = "데드 리프트"
+    case squat = "스쿼트"
+    case overHeadPress = "오버헤드 프레스"
+    case barbellRow = "바벨로우"
+    
+    var imageName: String {
+        switch self {
+        case .benchPress:
+            return "bench-press"  // 여기에 실제 이미지 파일 이름 입력
+        case .deadlift:
+            return "deadlift"
+        case .squat:
+            return "squat"
+        case .overHeadPress:
+            return "over-head-press"
+        case .barbellRow:
+            return "barbell-row"
+        }
+    }
+//
+//    var image: Image {
+//        Image(imageName)  // Image 인스턴스 생성
+//    }
+}
+
 enum WorkoutFeeling: String, CaseIterable, Codable {
     case tired = "😨"
     case soso = "😐"
     case motivated = "🔥"
+}
+
+#Preview {
+    VStack {
+        ForEach(WorkoutType.allCases, id: \.self) { type in
+            Image(type.imageName)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 130, height: 130)
+        }
+    }
 }
 
 //@Model

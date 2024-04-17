@@ -28,6 +28,7 @@ struct DiaryCalenderView: View {
                     deleteRecordDB: deleteRecordDB,
                     selectedDate: selectedDate
                 )
+                .animation(.linear(duration: 0.1) ,value: selectedDate)
             }
             .navigationTitle("운동 기록")
         }
@@ -35,9 +36,9 @@ struct DiaryCalenderView: View {
     }
     
     private func getWorkoutRecords(for date: Date) -> [WorkoutRecord] {
-        workoutRecords.filter({
-            $0.creationDate.startOfDay() == date.startOfDay()
-        })
+        workoutRecords.filter { workoutRecord in
+            date.isSameDate(date: workoutRecord.creationDate)
+        }
     }
 }
 
