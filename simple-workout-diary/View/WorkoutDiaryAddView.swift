@@ -28,13 +28,10 @@ struct WorkoutDiaryAddView: View {
     @State private var showingExitConfirmation = false
     @State private var showingCompletionAlert = false
     @State private var showingFeelingPicker = false
-    
+
     var body: some View {
         NavigationView {
             VStack {
-                ForEach($workoutDetails) { workoutDetail in
-                    WorkoutDetailInputView(workoutDetail: workoutDetail)
-                }
                 ZStack {
                     RoundedRectangle(cornerRadius: 10.0)
                         .fill(Color.gray.opacity(0.15))
@@ -43,6 +40,9 @@ struct WorkoutDiaryAddView: View {
                 }
                 .padding(.horizontal)
                 .frame(height: 40)
+                ForEach($workoutDetails) { workoutDetail in
+                    WorkoutDetailInputView(workoutDetail: workoutDetail)
+                }
                 Spacer()
             }
             .navigationTitle(creationDate.formattedDateYearMonthDay())
@@ -182,7 +182,7 @@ struct WorkoutDetailInputView: View {
     @State private var showingAlert = false
     @State private var inputWeight = ""
     
-    let minWeightGap = 10
+    let minWeightGap = 5
     
     var body: some View {
         Section {
@@ -196,20 +196,6 @@ struct WorkoutDetailInputView: View {
                 Text(workoutDetail.workoutType.rawValue)
                     .fontWeight(.semibold)
                 Spacer()
-                
-                Button(action: {
-                    if workoutDetail.weight >= minWeightGap {
-                        workoutDetail.weight -= minWeightGap
-                    }
-                }, label: {
-                    ZStack {
-                        Circle()
-                            .fill(Color.gray.opacity(0.3))
-                            .scaledToFit()
-                        Text("-\(minWeightGap)")
-                    }
-                })
-                .frame(width: 40)
                 
                 Button(action: {
                     self.inputWeight = "\(workoutDetail.weight)"
@@ -226,7 +212,20 @@ struct WorkoutDetailInputView: View {
                 } message: {
                     Text("새로운 무게를 입력하세요.")
                 }
-                .frame(width: 50)
+                
+                Button(action: {
+                    if workoutDetail.weight >= minWeightGap {
+                        workoutDetail.weight -= minWeightGap
+                    }
+                }, label: {
+                    ZStack {
+                        Circle()
+                            .fill(Color.gray.opacity(0.3))
+                            .scaledToFit()
+                        Text("-\(minWeightGap)")
+                    }
+                })
+                .frame(width: 40)
                 
                 Button(action: {workoutDetail.weight += minWeightGap}, label: {
                     ZStack {

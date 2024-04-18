@@ -32,9 +32,6 @@ struct WorkoutDetailView: View {
     
     var body: some View {
         VStack {
-            ForEach($workoutDetails) { workoutDetail in
-                WorkoutDetailInputView(workoutDetail: workoutDetail)
-            }
             ZStack {
                 RoundedRectangle(cornerRadius: 10.0)
                     .fill(Color.gray.opacity(0.15))
@@ -43,6 +40,9 @@ struct WorkoutDetailView: View {
             }
             .padding(.horizontal)
             .frame(height: 40)
+            ForEach($workoutDetails) { workoutDetail in
+                WorkoutDetailInputView(workoutDetail: workoutDetail)
+            }
             Spacer()
         }
         .onDisappear {
