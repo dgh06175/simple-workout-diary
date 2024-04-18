@@ -71,16 +71,23 @@ struct WorkoutRecordRow: View {
     
     var body: some View {
         HStack {
-            VStack(alignment: .leading) {
-                Text(workoutRecord.memo)
-                    .font(.subheadline)
-            }
+            Text(workoutRecord.memo)
+                .font(.subheadline)
             Spacer()
+            Text("총 \(totalWeight(for: workoutRecord))kg")
+                .font(.footnote)
             Text(workoutRecord.feeling?.rawValue ?? "😐")
                 .font(.title2)
                 .padding(.trailing)
         }
         .frame(height: 50)
+    }
+    
+    func totalWeight(for workoutRecord: WorkoutRecord) -> Int {
+        let total = workoutRecord.workoutDetails.reduce(0) { sum, detail in
+            sum + detail.weight
+        }
+        return total
     }
 }
 

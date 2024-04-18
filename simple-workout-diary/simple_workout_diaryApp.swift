@@ -30,7 +30,8 @@ struct simple_workout_diaryApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: WorkoutRecord.self)
+//        .modelContainer(for: WorkoutRecord.self)
+        .modelContainer(sampleData)
 //        .modelContainer(sharedModelContainer)
     }
 }

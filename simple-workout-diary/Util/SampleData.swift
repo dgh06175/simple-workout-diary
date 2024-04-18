@@ -53,7 +53,7 @@ struct MockWorkoutData {
             feeling: .soso
         ),
         WorkoutRecord(
-            creationDate: Date().addingTimeInterval(-65 * 24 * 3600), // 65일 전
+            creationDate: Date().addingTimeInterval(-66 * 24 * 3600), // 65일 전
             memo: "오늘 기분 최고!",
             workoutDetails: [
                 WorkoutDetail(workoutType: .benchPress, weight: 55),
@@ -90,7 +90,7 @@ struct MockWorkoutData {
             feeling: .motivated
         ),
         WorkoutRecord(
-            creationDate: Date().addingTimeInterval(-56 * 24 * 3600), // 56일 전
+            creationDate: Date().addingTimeInterval(-57 * 24 * 3600), // 56일 전
             memo: "오늘은 좀 힘들었어요",
             workoutDetails: [
                 WorkoutDetail(workoutType: .benchPress, weight: 60),
@@ -126,7 +126,7 @@ struct MockWorkoutData {
             feeling: .motivated
         ),
         WorkoutRecord(
-            creationDate: Date().addingTimeInterval(-47 * 24 * 3600), // 47일 전
+            creationDate: Date().addingTimeInterval(-45 * 24 * 3600), // 47일 전
             memo: "조금 힘들어도 계속!",
             workoutDetails: [
                 WorkoutDetail(workoutType: .benchPress, weight: 65),
@@ -138,7 +138,7 @@ struct MockWorkoutData {
             feeling: .soso
         ),
         WorkoutRecord(
-            creationDate: Date().addingTimeInterval(-44 * 24 * 3600), // 44일 전
+            creationDate: Date().addingTimeInterval(-43 * 24 * 3600), // 44일 전
             memo: "기운이 넘치는 날!",
             workoutDetails: [
                 WorkoutDetail(workoutType: .benchPress, weight: 70),
@@ -174,7 +174,7 @@ struct MockWorkoutData {
             feeling: .tired
         ),
         WorkoutRecord(
-            creationDate: Date().addingTimeInterval(-35 * 24 * 3600), // 35일 전
+            creationDate: Date().addingTimeInterval(-34 * 24 * 3600), // 35일 전
             memo: "다시 힘을 내서!",
             workoutDetails: [
                 WorkoutDetail(workoutType: .benchPress, weight: 70),
@@ -198,7 +198,7 @@ struct MockWorkoutData {
             feeling: .motivated
         ),
         WorkoutRecord(
-            creationDate: Date().addingTimeInterval(-29 * 24 * 3600), // 29일 전
+            creationDate: Date().addingTimeInterval(-28 * 24 * 3600), // 29일 전
             memo: "최고의 컨디션!",
             workoutDetails: [
                 WorkoutDetail(workoutType: .benchPress, weight: 75),
@@ -222,7 +222,7 @@ struct MockWorkoutData {
             feeling: .tired
         ),
         WorkoutRecord(
-            creationDate: Date().addingTimeInterval(-23 * 24 * 3600), // 23일 전
+            creationDate: Date().addingTimeInterval(-24 * 24 * 3600), // 23일 전
             memo: "오늘은 조금 더 노력해야 할 것 같아요",
             workoutDetails: [
                 WorkoutDetail(workoutType: .benchPress, weight: 75),
@@ -234,7 +234,7 @@ struct MockWorkoutData {
             feeling: .soso
         ),
         WorkoutRecord(
-            creationDate: Date().addingTimeInterval(-20 * 24 * 3600), // 20일 전
+            creationDate: Date().addingTimeInterval(-21 * 24 * 3600), // 20일 전
             memo: "오늘은 좋은 날이에요!",
             workoutDetails: [
                 WorkoutDetail(workoutType: .benchPress, weight: 75),
@@ -258,7 +258,7 @@ struct MockWorkoutData {
             feeling: .tired
         ),
         WorkoutRecord(
-            creationDate: Date().addingTimeInterval(-14 * 24 * 3600), // 14일 전
+            creationDate: Date().addingTimeInterval(-13 * 24 * 3600), // 14일 전
             memo: "점점 힘이 나네요!",
             workoutDetails: [
                 WorkoutDetail(workoutType: .benchPress, weight: 80),
