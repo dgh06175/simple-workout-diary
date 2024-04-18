@@ -24,7 +24,8 @@ final class WorkoutRecord: Identifiable {
     }
 }
 
-final class WorkoutDetail: Identifiable, Codable {
+@Model
+final class WorkoutDetail: Identifiable {
     let workoutType: WorkoutType
     var weight: Int
     

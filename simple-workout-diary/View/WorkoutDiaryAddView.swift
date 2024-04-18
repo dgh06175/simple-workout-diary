@@ -31,13 +31,19 @@ struct WorkoutDiaryAddView: View {
     
     var body: some View {
         NavigationView {
-            Form {
-                Section(header: Text("메모")) {
-                    TextField("운동에 대한 메모를 입력하세요", text: $memo)
-                }
+            VStack {
                 ForEach($workoutDetails) { workoutDetail in
                     WorkoutDetailInputView(workoutDetail: workoutDetail)
                 }
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10.0)
+                        .fill(Color.gray.opacity(0.15))
+                    TextField("운동에 대한 메모를 입력하세요", text: $memo)
+                        .padding(.horizontal)
+                }
+                .padding(.horizontal)
+                .frame(height: 40)
+                Spacer()
             }
             .navigationTitle(creationDate.formattedDateYearMonthDay())
             .toolbar {
@@ -172,9 +178,9 @@ struct FeelingPickerView: View {
 
 struct WorkoutDetailInputView: View {
     @Binding var workoutDetail: WorkoutDetail
+    @State var weight: Int = 0
     
-    var weightOptions = [20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200]
-    @State private var selectedWeightOptionIndex = 0
+    let minWeightGap = 10
     
     var body: some View {
         Section {
@@ -183,16 +189,45 @@ struct WorkoutDetailInputView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 50, height: 50)
-                Picker(selection: $selectedWeightOptionIndex, label: Text(workoutDetail.workoutType.rawValue)) {
-                    ForEach(weightOptions.indices, id: \.self) { index in
-                        Text("\(self.weightOptions[index]) Kg")
+                Spacer()
+                    .frame(width: 20)
+                Text(workoutDetail.workoutType.rawValue)
+                    .fontWeight(.semibold)
+                Spacer()
+                
+                Button(action: {
+                    if workoutDetail.weight >= minWeightGap {
+                        workoutDetail.weight -= minWeightGap
                     }
-                }
-                .pickerStyle(.automatic)
-                .onReceive([self.selectedWeightOptionIndex].publisher.first()) { index in
-                    workoutDetail.weight = self.weightOptions[index]
-                }
+                }, label: {
+                    ZStack {
+                        Circle()
+                            .fill(Color.gray.opacity(0.3))
+                            .scaledToFit()
+                        Text("-\(minWeightGap)")
+                    }
+                })
+                .frame(width: 40)
+
+                Button(action: {}, label: {
+                    Text("\(workoutDetail.weight)kg")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                })
+                .frame(width: 50)
+                
+                Button(action: {workoutDetail.weight += minWeightGap}, label: {
+                    ZStack {
+                        Circle()
+                            .fill(Color.gray.opacity(0.3))
+                            .scaledToFit()
+                        Text("+\(minWeightGap)")
+                    }
+                })
+                .frame(width: 40)
+
             }
+            .padding()
         }
     }
 }

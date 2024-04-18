@@ -13,6 +13,7 @@ struct WorkoutDetailView: View {
     let deleteRecordDB: (WorkoutRecord) -> Void
     let memo_old: String
     @State var memo: String
+    @State var workoutDetails: [WorkoutDetail]
 
     @Environment(\.dismiss) var dismiss
     @State private var showingExitConfirmation = false
@@ -26,13 +27,23 @@ struct WorkoutDetailView: View {
         self.deleteRecordDB = deleteRecordDB
         self.memo_old = "\(workoutRecord.memo)"
         self.memo = workoutRecord.memo
+        self.workoutDetails = workoutRecord.workoutDetails
     }
     
     var body: some View {
-        Form {
-            Section(header: Text("메모")) {
-                TextField("운동에 대한 메모를 입력하세요", text: $memo)
+        VStack {
+            ForEach($workoutDetails) { workoutDetail in
+                WorkoutDetailInputView(workoutDetail: workoutDetail)
             }
+            ZStack {
+                RoundedRectangle(cornerRadius: 10.0)
+                    .fill(Color.gray.opacity(0.15))
+                TextField("운동에 대한 메모를 입력하세요", text: $memo)
+                    .padding(.horizontal)
+            }
+            .padding(.horizontal)
+            .frame(height: 40)
+            Spacer()
         }
         .onDisappear {
             workoutRecord.memo = memo
