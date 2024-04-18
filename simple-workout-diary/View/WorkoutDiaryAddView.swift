@@ -28,7 +28,6 @@ struct WorkoutDiaryAddView: View {
     @State private var showingExitConfirmation = false
     @State private var showingCompletionAlert = false
     @State private var showingFeelingPicker = false
-
     
     var body: some View {
         NavigationView {
@@ -57,8 +56,6 @@ struct WorkoutDiaryAddView: View {
                     isPresented: $showingCompletionAlert,
                     onConfirm: { showingFeelingPicker = true }
                 ))
-            
-            
         }
         .sheet(isPresented: $showingFeelingPicker) {
             FeelingPickerView(selectedFeeling: $selectedFeeling) {
@@ -177,24 +174,25 @@ struct WorkoutDetailInputView: View {
     @Binding var workoutDetail: WorkoutDetail
     
     var weightOptions = [20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200]
-    @State private var selectedWeightOption = 5
+    @State private var selectedWeightOptionIndex = 0
     
     var body: some View {
         Section {
             HStack {
                 Image(workoutDetail.workoutType.imageName)
                     .resizable()
+                    .scaledToFit()
                     .frame(width: 50, height: 50)
-                Picker("무게를 선택하세요", selection: $selectedWeightOption) {
-                    ForEach(0 ..< weightOptions.count) {
-                        Text("\(weightOptions[$0])")
+                Picker(selection: $selectedWeightOptionIndex, label: Text(workoutDetail.workoutType.rawValue)) {
+                    ForEach(weightOptions.indices, id: \.self) { index in
+                        Text("\(self.weightOptions[index]) Kg")
                     }
                 }
                 .pickerStyle(.automatic)
-//                TextField("\(workoutDetail.workoutType) 무게를 입력하세요", text: workoutDetail.weight)
+                .onReceive([self.selectedWeightOptionIndex].publisher.first()) { index in
+                    workoutDetail.weight = self.weightOptions[index]
+                }
             }
-        } header: {
-            Text("\(workoutDetail.workoutType.rawValue)")
         }
     }
 }
