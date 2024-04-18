@@ -179,6 +179,8 @@ struct FeelingPickerView: View {
 struct WorkoutDetailInputView: View {
     @Binding var workoutDetail: WorkoutDetail
     @State var weight: Int = 0
+    @State private var showingAlert = false
+    @State private var inputWeight = ""
     
     let minWeightGap = 10
     
@@ -208,12 +210,22 @@ struct WorkoutDetailInputView: View {
                     }
                 })
                 .frame(width: 40)
-
-                Button(action: {}, label: {
+                
+                Button(action: {
+                    self.inputWeight = "\(workoutDetail.weight)"
+                    self.showingAlert = true
+                }, label: {
                     Text("\(workoutDetail.weight)kg")
                         .font(.title3)
                         .fontWeight(.semibold)
                 })
+                .alert("무게 입력", isPresented: $showingAlert) {
+                    TextField("무게 입력", text: $inputWeight)
+                    Button("확인", action: updateWeight)
+                    Button("취소", role: .cancel) {}
+                } message: {
+                    Text("새로운 무게를 입력하세요.")
+                }
                 .frame(width: 50)
                 
                 Button(action: {workoutDetail.weight += minWeightGap}, label: {
@@ -225,9 +237,13 @@ struct WorkoutDetailInputView: View {
                     }
                 })
                 .frame(width: 40)
-
+                
             }
             .padding()
         }
     }
+    private func updateWeight() {
+            let newWeight = Int(inputWeight) ?? workoutDetail.weight
+            workoutDetail.weight = newWeight
+        }
 }
