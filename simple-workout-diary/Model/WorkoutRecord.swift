@@ -9,19 +9,32 @@ import SwiftUI
 import SwiftData
 
 @Model
-final class WorkoutRecord {
+final class WorkoutRecord: Identifiable {
+    let id: UUID = UUID()
     var creationDate: Date
     var memo: String
+    var workoutDetails: [WorkoutDetail]
     var feeling: WorkoutFeeling?
     
-    init(creationDate: Date = .now, memo: String = "", feeling: WorkoutFeeling? = nil) {
+    init(creationDate: Date = .now, memo: String = "", workoutDetails: [WorkoutDetail], feeling: WorkoutFeeling? = nil) {
         self.creationDate = creationDate
         self.memo = memo
+        self.workoutDetails = workoutDetails
         self.feeling = feeling
     }
 }
 
-enum WorkoutType: String, CaseIterable {
+final class WorkoutDetail: Identifiable, Codable {
+    let workoutType: WorkoutType
+    var weight: Int
+    
+    init(workoutType: WorkoutType, weight: Int = 0) {
+        self.workoutType = workoutType
+        self.weight = weight
+    }
+}
+
+enum WorkoutType: String, CaseIterable, Codable {
     case benchPress = "벤치프레스"
     case deadlift = "데드 리프트"
     case squat = "스쿼트"
@@ -42,10 +55,6 @@ enum WorkoutType: String, CaseIterable {
             return "barbell-row"
         }
     }
-//
-//    var image: Image {
-//        Image(imageName)  // Image 인스턴스 생성
-//    }
 }
 
 enum WorkoutFeeling: String, CaseIterable, Codable {

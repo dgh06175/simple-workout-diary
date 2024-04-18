@@ -32,7 +32,6 @@ struct DiaryCalenderView: View {
             }
             .navigationTitle("운동 기록")
         }
-        
     }
     
     private func getWorkoutRecords(for date: Date) -> [WorkoutRecord] {

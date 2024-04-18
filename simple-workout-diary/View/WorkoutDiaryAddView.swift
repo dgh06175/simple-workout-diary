@@ -13,19 +13,31 @@ struct WorkoutDiaryAddView: View {
     let insertRecordDB: (WorkoutRecord) -> Void
     
     @Environment(\.dismiss) var dismiss
+    
     @State private var memo: String = ""
     @State private var selectedFeeling: WorkoutFeeling?
+    @State private var workoutDetails: [WorkoutDetail] = [
+        WorkoutDetail(workoutType: WorkoutType.benchPress),
+        WorkoutDetail(workoutType: WorkoutType.squat),
+        WorkoutDetail(workoutType: WorkoutType.deadlift),
+        WorkoutDetail(workoutType: WorkoutType.overHeadPress),
+        WorkoutDetail(workoutType: WorkoutType.barbellRow)
+    ]
     @State private var creationDate: Date = Date()
-
+    
     @State private var showingExitConfirmation = false
     @State private var showingCompletionAlert = false
     @State private var showingFeelingPicker = false
+
     
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("메모")) {
                     TextField("운동에 대한 메모를 입력하세요", text: $memo)
+                }
+                ForEach($workoutDetails) { workoutDetail in
+                    WorkoutDetailInputView(workoutDetail: workoutDetail)
                 }
             }
             .navigationTitle(creationDate.formattedDateYearMonthDay())
@@ -45,6 +57,8 @@ struct WorkoutDiaryAddView: View {
                     isPresented: $showingCompletionAlert,
                     onConfirm: { showingFeelingPicker = true }
                 ))
+            
+            
         }
         .sheet(isPresented: $showingFeelingPicker) {
             FeelingPickerView(selectedFeeling: $selectedFeeling) {
@@ -71,6 +85,7 @@ struct WorkoutDiaryAddView: View {
         let newRecord = WorkoutRecord(
             creationDate: creationDate,
             memo: memo,
+            workoutDetails: workoutDetails,
             feeling: selectedFeeling
         )
         insertRecordDB(newRecord)
@@ -96,7 +111,7 @@ struct ExitConfirmationAlert: ViewModifier {
 struct CompletionConfirmationAlert: ViewModifier {
     @Binding var isPresented: Bool
     var onConfirm: () -> Void
-
+    
     func body(content: Content) -> some View {
         content
             .alert("정말 완료하시겠습니까?", isPresented: $isPresented) {
@@ -109,7 +124,7 @@ struct CompletionConfirmationAlert: ViewModifier {
 struct WorkoutDiaryToolbar: ToolbarContent {
     var checkForUnsavedChanges: () -> Void
     var showCompletionAlert: () -> Void
-
+    
     var body: some ToolbarContent {
         Group {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -127,7 +142,7 @@ struct WorkoutDiaryToolbar: ToolbarContent {
 struct FeelingPickerView: View {
     @Binding var selectedFeeling: WorkoutFeeling?
     var onConfirm: () -> Void
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -156,4 +171,30 @@ struct FeelingPickerView: View {
 #Preview {
     ContentView()
         .modelContainer(sampleData)
+}
+
+struct WorkoutDetailInputView: View {
+    @Binding var workoutDetail: WorkoutDetail
+    
+    var weightOptions = [20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200]
+    @State private var selectedWeightOption = 5
+    
+    var body: some View {
+        Section {
+            HStack {
+                Image(workoutDetail.workoutType.imageName)
+                    .resizable()
+                    .frame(width: 50, height: 50)
+                Picker("무게를 선택하세요", selection: $selectedWeightOption) {
+                    ForEach(0 ..< weightOptions.count) {
+                        Text("\(weightOptions[$0])")
+                    }
+                }
+                .pickerStyle(.automatic)
+//                TextField("\(workoutDetail.workoutType) 무게를 입력하세요", text: workoutDetail.weight)
+            }
+        } header: {
+            Text("\(workoutDetail.workoutType.rawValue)")
+        }
+    }
 }

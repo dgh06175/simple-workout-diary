@@ -113,13 +113,13 @@ private struct CellView: View {
         ZStack {
             if isSameDate(Date(), cellDate) {
                 Circle()
-                    .fill(Color.blue)
+                    .fill(Color.customDarkRed)
                     .frame(width: 45, height: 45)
             }
             
             if isSameDate(selectedDate, cellDate) {
                 Circle()
-                    .fill(Color.blue.opacity(0.5))
+                    .fill(Color.customDarkRedOp2)
                     .frame(width: 45, height: 45)
             }
             RoundedRectangle(cornerRadius: 5)
