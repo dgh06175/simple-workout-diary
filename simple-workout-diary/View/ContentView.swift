@@ -29,9 +29,9 @@ struct ContentView: View {
                 .tabItem {
                     Label("캘린더", systemImage: "calendar")
                 }
-            SettingView()
+            ChartView(workoutRecords: workoutRecords)
                 .tabItem {
-                    Label("프로필", systemImage: "person")
+                    Label("그래프", systemImage: "chart.xyaxis.line")
                 }
         }
     }
