@@ -60,14 +60,14 @@ iOS 17.2 / SwiftUI / SwiftData
 
 # 💽 메모 데이터 정의
 
-> **WorkoutDetailRecord**
+> **WorkoutRecord**
 
 - 작성 날짜: `Date`
 - 메모: `String`
 - 운동 상세 정보: `[WorkoutDetail]`
 - 기분 이모지: `WorkoutFeeling`(Enum)
 
-> **WorkoutDetailRecord**
+> **WorkoutDetail**
 
 - 운동 종류: `WorkoutType`(Enum)
 - 무게: `Int`
