@@ -9,8 +9,7 @@ import SwiftUI
 import SwiftData
 
 @Model
-final class WorkoutRecord: Identifiable {
-    let id: UUID = UUID()
+final class WorkoutRecord {
     var creationDate: Date
     var memo: String
     var workoutDetails: [WorkoutDetail]
@@ -25,7 +24,7 @@ final class WorkoutRecord: Identifiable {
 }
 
 @Model
-final class WorkoutDetail: Identifiable {
+final class WorkoutDetail {
     let workoutType: WorkoutType
     var weight: Int
     
