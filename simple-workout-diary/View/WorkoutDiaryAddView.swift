@@ -96,7 +96,8 @@ struct WorkoutDiaryAddView: View {
     }
 }
 
-struct ExitConfirmationAlert: ViewModifier {
+// MARK: - 경고창
+private struct ExitConfirmationAlert: ViewModifier {
     @Binding var isPresented: Bool
     var onConfirm: () -> Void
     
@@ -111,7 +112,7 @@ struct ExitConfirmationAlert: ViewModifier {
     }
 }
 
-struct CompletionConfirmationAlert: ViewModifier {
+private struct CompletionConfirmationAlert: ViewModifier {
     @Binding var isPresented: Bool
     var onConfirm: () -> Void
     
@@ -124,7 +125,7 @@ struct CompletionConfirmationAlert: ViewModifier {
     }
 }
 
-struct WorkoutDiaryToolbar: ToolbarContent {
+fileprivate struct WorkoutDiaryToolbar: ToolbarContent {
     var checkForUnsavedChanges: () -> Void
     var showCompletionAlert: () -> Void
     
@@ -142,7 +143,7 @@ struct WorkoutDiaryToolbar: ToolbarContent {
     }
 }
 
-struct FeelingPickerView: View {
+private struct FeelingPickerView: View {
     @Binding var selectedFeeling: WorkoutFeeling?
     var onConfirm: () -> Void
     

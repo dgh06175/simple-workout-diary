@@ -10,7 +10,7 @@ import SwiftData
 
 struct ContentView: View {
     @Query private var workoutRecords: [WorkoutRecord]
-
+    
     @Environment(\.modelContext) private var modelContext
     
     var body: some View {
@@ -19,16 +19,16 @@ struct ContentView: View {
                 workoutRecords: workoutRecords,
                 insertRecordDB: insertRecordDB
             )
-                .tabItem {
-                    Label("홈", systemImage: "house")
-                }
+            .tabItem {
+                Label("홈", systemImage: "house")
+            }
             DiaryCalenderView(
                 workoutRecords: workoutRecords,
                 deleteRecordDB: deleteRecordDB
             )
-                .tabItem {
-                    Label("캘린더", systemImage: "calendar")
-                }
+            .tabItem {
+                Label("캘린더", systemImage: "calendar")
+            }
             ChartView(workoutRecords: workoutRecords)
                 .tabItem {
                     Label("그래프", systemImage: "chart.xyaxis.line")
