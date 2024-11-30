@@ -3,153 +3,138 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		556E81172BC56DC9005F0042 /* simple_workout_diaryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E81162BC56DC9005F0042 /* simple_workout_diaryApp.swift */; };
-		556E81192BC56DC9005F0042 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E81182BC56DC9005F0042 /* ContentView.swift */; };
-		556E811B2BC56DC9005F0042 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E811A2BC56DC9005F0042 /* Item.swift */; };
-		556E811D2BC56DCA005F0042 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556E811C2BC56DCA005F0042 /* Assets.xcassets */; };
-		556E81202BC56DCA005F0042 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556E811F2BC56DCA005F0042 /* Preview Assets.xcassets */; };
+		552A637D2CF4607400E3AA58 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 552A637C2CF4607400E3AA58 /* SDWebImageSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		556E81132BC56DC9005F0042 /* simple-workout-diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "simple-workout-diary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		556E81162BC56DC9005F0042 /* simple_workout_diaryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = simple_workout_diaryApp.swift; sourceTree = "<group>"; };
-		556E81182BC56DC9005F0042 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		556E811A2BC56DC9005F0042 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		556E811C2BC56DCA005F0042 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		556E811F2BC56DCA005F0042 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		552A62FD2CF45F1000E3AA58 /* simple-workout-diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "simple-workout-diary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		552A62FF2CF45F1000E3AA58 /* simple-workout-diary */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "simple-workout-diary";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
-		556E81102BC56DC9005F0042 /* Frameworks */ = {
+		552A62FA2CF45F1000E3AA58 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				552A637D2CF4607400E3AA58 /* SDWebImageSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		556E810A2BC56DC8005F0042 = {
+		552A62F42CF45F1000E3AA58 = {
 			isa = PBXGroup;
 			children = (
-				556E81152BC56DC9005F0042 /* simple-workout-diary */,
-				556E81142BC56DC9005F0042 /* Products */,
+				552A62FF2CF45F1000E3AA58 /* simple-workout-diary */,
+				552A62FE2CF45F1000E3AA58 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		556E81142BC56DC9005F0042 /* Products */ = {
+		552A62FE2CF45F1000E3AA58 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				556E81132BC56DC9005F0042 /* simple-workout-diary.app */,
+				552A62FD2CF45F1000E3AA58 /* simple-workout-diary.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		556E81152BC56DC9005F0042 /* simple-workout-diary */ = {
-			isa = PBXGroup;
-			children = (
-				556E81162BC56DC9005F0042 /* simple_workout_diaryApp.swift */,
-				556E81182BC56DC9005F0042 /* ContentView.swift */,
-				556E811A2BC56DC9005F0042 /* Item.swift */,
-				556E811C2BC56DCA005F0042 /* Assets.xcassets */,
-				556E811E2BC56DCA005F0042 /* Preview Content */,
-			);
-			path = "simple-workout-diary";
-			sourceTree = "<group>";
-		};
-		556E811E2BC56DCA005F0042 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				556E811F2BC56DCA005F0042 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		556E81122BC56DC9005F0042 /* simple-workout-diary */ = {
+		552A62FC2CF45F1000E3AA58 /* simple-workout-diary */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 556E81232BC56DCA005F0042 /* Build configuration list for PBXNativeTarget "simple-workout-diary" */;
+			buildConfigurationList = 552A630B2CF45F1100E3AA58 /* Build configuration list for PBXNativeTarget "simple-workout-diary" */;
 			buildPhases = (
-				556E810F2BC56DC9005F0042 /* Sources */,
-				556E81102BC56DC9005F0042 /* Frameworks */,
-				556E81112BC56DC9005F0042 /* Resources */,
+				552A62F92CF45F1000E3AA58 /* Sources */,
+				552A62FA2CF45F1000E3AA58 /* Frameworks */,
+				552A62FB2CF45F1000E3AA58 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				552A62FF2CF45F1000E3AA58 /* simple-workout-diary */,
+			);
 			name = "simple-workout-diary";
+			packageProductDependencies = (
+				552A637C2CF4607400E3AA58 /* SDWebImageSwiftUI */,
+			);
 			productName = "simple-workout-diary";
-			productReference = 556E81132BC56DC9005F0042 /* simple-workout-diary.app */;
+			productReference = 552A62FD2CF45F1000E3AA58 /* simple-workout-diary.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		556E810B2BC56DC8005F0042 /* Project object */ = {
+		552A62F52CF45F1000E3AA58 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1530;
-				LastUpgradeCheck = 1530;
+				LastSwiftUpdateCheck = 1610;
+				LastUpgradeCheck = 1610;
 				TargetAttributes = {
-					556E81122BC56DC9005F0042 = {
-						CreatedOnToolsVersion = 15.3;
+					552A62FC2CF45F1000E3AA58 = {
+						CreatedOnToolsVersion = 16.1;
 					};
 				};
 			};
-			buildConfigurationList = 556E810E2BC56DC8005F0042 /* Build configuration list for PBXProject "simple-workout-diary" */;
-			compatibilityVersion = "Xcode 14.0";
+			buildConfigurationList = 552A62F82CF45F1000E3AA58 /* Build configuration list for PBXProject "simple-workout-diary" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 556E810A2BC56DC8005F0042;
-			productRefGroup = 556E81142BC56DC9005F0042 /* Products */;
+			mainGroup = 552A62F42CF45F1000E3AA58;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				552A637B2CF4607400E3AA58 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 552A62FE2CF45F1000E3AA58 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				556E81122BC56DC9005F0042 /* simple-workout-diary */,
+				552A62FC2CF45F1000E3AA58 /* simple-workout-diary */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		556E81112BC56DC9005F0042 /* Resources */ = {
+		552A62FB2CF45F1000E3AA58 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				556E81202BC56DCA005F0042 /* Preview Assets.xcassets in Resources */,
-				556E811D2BC56DCA005F0042 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		556E810F2BC56DC9005F0042 /* Sources */ = {
+		552A62F92CF45F1000E3AA58 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				556E81192BC56DC9005F0042 /* ContentView.swift in Sources */,
-				556E811B2BC56DC9005F0042 /* Item.swift in Sources */,
-				556E81172BC56DC9005F0042 /* simple_workout_diaryApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		556E81212BC56DCA005F0042 /* Debug */ = {
+		552A63092CF45F1100E3AA58 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -201,7 +186,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -212,7 +197,7 @@
 			};
 			name = Debug;
 		};
-		556E81222BC56DCA005F0042 /* Release */ = {
+		552A630A2CF45F1100E3AA58 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -258,7 +243,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -268,7 +253,7 @@
 			};
 			name = Release;
 		};
-		556E81242BC56DCA005F0042 /* Debug */ = {
+		552A630C2CF45F1100E3AA58 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -284,6 +269,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -297,7 +283,7 @@
 			};
 			name = Debug;
 		};
-		556E81252BC56DCA005F0042 /* Release */ = {
+		552A630D2CF45F1100E3AA58 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -313,6 +299,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -329,25 +316,44 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		556E810E2BC56DC8005F0042 /* Build configuration list for PBXProject "simple-workout-diary" */ = {
+		552A62F82CF45F1000E3AA58 /* Build configuration list for PBXProject "simple-workout-diary" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				556E81212BC56DCA005F0042 /* Debug */,
-				556E81222BC56DCA005F0042 /* Release */,
+				552A63092CF45F1100E3AA58 /* Debug */,
+				552A630A2CF45F1100E3AA58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		556E81232BC56DCA005F0042 /* Build configuration list for PBXNativeTarget "simple-workout-diary" */ = {
+		552A630B2CF45F1100E3AA58 /* Build configuration list for PBXNativeTarget "simple-workout-diary" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				556E81242BC56DCA005F0042 /* Debug */,
-				556E81252BC56DCA005F0042 /* Release */,
+				552A630C2CF45F1100E3AA58 /* Debug */,
+				552A630D2CF45F1100E3AA58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		552A637B2CF4607400E3AA58 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		552A637C2CF4607400E3AA58 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 552A637B2CF4607400E3AA58 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = 556E810B2BC56DC8005F0042 /* Project object */;
+	rootObject = 552A62F52CF45F1000E3AA58 /* Project object */;
 }
